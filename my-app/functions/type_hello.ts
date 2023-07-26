@@ -1,4 +1,5 @@
 import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
+import MessageWorkFlow from "../workflows/message_workflow.ts";
 
 export const TypeHello = DefineFunction({
 	callback_id: "type_hello_function",
@@ -8,21 +9,21 @@ export const TypeHello = DefineFunction({
 	input_parameters: {
 		properties: {
 			message: {
-				type: Schema.types.string
+				type: Schema.types.string,
+				description: "message",
 			}
 		},
 		required: ["message"],
 	},
 	output_parameters: {
 		properties: {
-			channel: {
-				type: Schema.slack.types.channel_id,
-			},
 			submitting_user: {
 				type: Schema.slack.types.user_id,
+				description: "submitting_user"
 			},
 			message: {
-				type: Schema.types.string
+				type: Schema.types.string,
+				description: "message"
 			}
 		},
 		required: ["submitting_user", "message"],
@@ -44,7 +45,7 @@ export default SlackFunction(
 					"type": "section",
 					"text": {
 						"type": "mrkdwn",
-						"text": `Hello <@${submitting_user}>!`,
+						"text": `Hello!`,
 					},
 				},
 				{
@@ -56,9 +57,11 @@ export default SlackFunction(
 				}
 			],
 		});
-
-		//return all inputs as outputs for consumption in subsequent functions
 		return {
-			outputs: { message }
-		}
-});
+			outputs: {
+				submitting_user,
+				message,
+			},
+		};
+	}
+);
