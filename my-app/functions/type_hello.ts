@@ -1,24 +1,17 @@
-import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
-import { SlackFunction } from "deno-slack-sdk/mod.ts";
+import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
 
 export const TypeHello = DefineFunction({
 	callback_id: "type_hello_function",
 	title: "Type Hello",
 	description: "Type Hello",
-	source_file: "functions/post_issue_message.ts",
+	source_file: "functions/type_hello.ts",
 	input_parameters: {
 		properties: {
-			channel: {
-				type: Schema.slack.types.channel_id,
-			},
-			submitting_user: {
-				type: Schema.slack.types.user_id,
-			},
 			message: {
 				type: Schema.types.string
 			}
 		},
-		required: ["submitting_user", "channel", "message"],
+		required: ["message"],
 	},
 	output_parameters: {
 		properties: {
@@ -66,6 +59,6 @@ export default SlackFunction(
 
 		//return all inputs as outputs for consumption in subsequent functions
 		return {
-			outputs: { channel, submitting_user, message }
+			outputs: { message }
 		}
 });
