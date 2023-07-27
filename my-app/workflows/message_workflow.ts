@@ -1,5 +1,5 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
-import { TypeHello } from "../functions/type_hello.ts";
+import { TypeHello } from "../functions/type_hello_function.ts";
 
 export const TypeHelloWorkflow = DefineWorkflow({
 	callback_id: "send_message_workflow",
@@ -16,7 +16,7 @@ export const TypeHelloWorkflow = DefineWorkflow({
 				description: "channel",
 			}
 		},
-		required: ["interactivity"],
+		required: ["interactivity"]
 	},
 });
 
@@ -36,7 +36,7 @@ const inputForm = TypeHelloWorkflow.addStep(
 				},
 				{
 					name: "channel",
-					title: "Channel to send message to",
+					title: "channel",
 					type: Schema.slack.types.channel_id,
 					default: TypeHelloWorkflow.inputs.channel,
 				},
@@ -46,19 +46,25 @@ const inputForm = TypeHelloWorkflow.addStep(
 					type: Schema.slack.types.user_id,
 				}
 			],	
-			required: ["submitting_user", "channel", "message"],
+			required: ["submitting_user", "message"],
 		},
 	},
 );
 
+const test = TypeHelloWorkflow.addStep(
+	TypeHello,
+	{
+		recipient: inputForm.outputs.fields.submitting_user,
+		message: inputForm.outputs.fields.message,
+	}
+)
+
 TypeHelloWorkflow.addStep(
-    TypeHello,
+    Schema.slack.functions.SendMessage,
     {
-        interactivity: inputForm.outputs.fields.interactivity,
-        channel: inputForm.outputs.fields.channel,
-        message: inputForm.outputs.fields.message
+        message: test.outputs.greeting,
+		channel_id: inputForm.outputs.fields.channel,
     }
 );
-
 
 export default TypeHelloWorkflow;
