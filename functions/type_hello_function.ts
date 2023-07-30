@@ -36,7 +36,6 @@ export default SlackFunction(
 
 		const { recipient, message } = inputs;
 		
-		
 		// Send a message to channel using a nicely formatted
 		// message using block elements from Block Kit.
 		// https://api.slack.com/block-kit

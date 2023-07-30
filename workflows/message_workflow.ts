@@ -23,7 +23,7 @@ export const TypeHelloWorkflow = DefineWorkflow({
 const inputForm = TypeHelloWorkflow.addStep(
 	Schema.slack.functions.OpenForm,
 	{
-		title: "Message Input Form",
+		title: "Choose a photo!",
 		interactivity: TypeHelloWorkflow.inputs.interactivity,
 		submit_label: "Submit",
 		fields: {
@@ -33,12 +33,6 @@ const inputForm = TypeHelloWorkflow.addStep(
 					title: "Message to display",
 					type: Schema.types.string,
 					long: true
-				},
-				{
-					name: "channel",
-					title: "channel",
-					type: Schema.slack.types.channel_id,
-					default: TypeHelloWorkflow.inputs.channel,
 				},
 				{
 					name: "submitting_user",
@@ -63,7 +57,7 @@ TypeHelloWorkflow.addStep(
     Schema.slack.functions.SendMessage,
     {
         message: test.outputs.greeting,
-		channel_id: inputForm.outputs.fields.channel,
+				channel_id: TypeHelloWorkflow.inputs.channel,
     }
 );
 
