@@ -1,1 +1,11 @@
-{}
+{
+  "apps": {
+    "TCS3BT55G": {
+      "app_id": "A05KP71DWAH",
+      "IsDev": false,
+      "team_domain": "hiyield",
+      "team_id": "TCS3BT55G"
+    }
+  },
+  "default": "hiyield"
+}
