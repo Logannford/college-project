@@ -4,8 +4,8 @@ import messageWorkFlow from "../workflows/message_workflow.ts";
 
 const messageTrigger: Trigger<typeof messageWorkFlow.definition> = {
 	type: TriggerTypes.Shortcut,
-	name: "Send a message",
-	description: "send a message to a channel",
+	name: "Choose a photo!",
+	description: "send a photo to a channel",
 	workflow: `#/workflows/send_message_workflow`,
 	inputs: {
 		interactivity: {

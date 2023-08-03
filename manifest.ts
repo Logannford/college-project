@@ -8,9 +8,9 @@ import WorkFlow from "./workflows/message_workflow.ts";
  * https://api.slack.com/automation/manifest
  */
 export default Manifest({
-  name: "Internal GitHub Integration",
+  name: "HiYield HTTP Cat Bot",
   description: "A bot to make our internal lives easier with GitHub.",
-  icon: "assets/mr-xumble.png",
+  icon: "assets/hy-logo.png",
   workflows: [WorkFlow],
   //functions: [TypeHello],
   outgoingDomains: [],
