@@ -1,5 +1,5 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
-import { TypeHello } from "../functions/type_hello_function.ts";
+import { TypeHello } from "../functions/definition.ts";
 
 export const TypeHelloWorkflow = DefineWorkflow({
   callback_id: "send_message_workflow",
